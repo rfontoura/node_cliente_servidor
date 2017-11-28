@@ -14,6 +14,8 @@ module.exports = function (application) {
 				res.json(retorno);
 			}
 		});
+
+		// res.render('blah'); // para ocorrer erro interno (500)
 	});
 
 	application.post('/', function (req, res) {

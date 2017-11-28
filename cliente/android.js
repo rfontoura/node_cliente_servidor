@@ -29,6 +29,9 @@ var req = http.request(opcoes, function (res) {
     res.on('end', function () {
         var corpoResponse = Buffer.concat(bufferCorpoResponse).toString();
         console.log(corpoResponse);
+
+        // retorna o código de Status (404, 200 etc.)
+        console.log(res.statusCode);
     })
 
     // ao ocorrer erro carregando a aplicação

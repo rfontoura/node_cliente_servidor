@@ -21,7 +21,7 @@ app.set('views', './app/views');
 app.use(express.static('./app/public'));
 
 /* configurar o middleware body-parser */
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); // prepara middleware para receber JSON
 
 /* configurar o middleware express-validator */
@@ -33,6 +33,24 @@ consign()
 	.then('app/models')
 	.then('app/controllers')
 	.into(app);
+
+// middeware para configurar páginas de status
+// inclusão deve ser feita após a definição das rotas, para que não pare o fluxo da aplicação
+// caso ocorra algum erro
+app.use(function (req, res, next) {
+
+	// define retorno para status code 404
+	res.status(404).render('errors/404');
+	next();
+});
+
+// middleware que configura mensagens de erros internos na aplicação
+app.use(function (err, req, res, next) {
+
+	// define retorno para status code 500
+	res.status(500).render('errors/500');
+	next();
+});
 
 /* exportar o objeto app */
 module.exports = app;
